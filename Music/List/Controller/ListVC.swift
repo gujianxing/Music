@@ -38,6 +38,7 @@ class ListVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mainTableView.alpha = 0.8
         self.requestData()
     }
 

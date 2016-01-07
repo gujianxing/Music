@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import AVFoundation
+import MediaPlayer
+
 let WIDTH = UIScreen.mainScreen().bounds.size.width
 let HEIGHT = UIScreen.mainScreen().bounds.size.height
+
 class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,NSURLConnectionDataDelegate,listDelegate {
     
     @IBOutlet weak var record: Record!
@@ -19,16 +23,16 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         var sources = NSMutableArray()
         return sources
     }()
+    
+    
     var channel_id = NSInteger()
     var or = Bool() //是否选择电台
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.or = false
         self.channel_id = 0
         
-
         
         //设置模糊效果
         let blureffect = UIBlurEffect(style: .Light)
@@ -38,7 +42,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         
         self.mainTableView.dataSource = self
         self.mainTableView.delegate = self
-        
+        self.mainTableView.backgroundColor = UIColor.clearColor()
     
     }
     
@@ -57,6 +61,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         if self.dataSource.count > indexPath.row {
             let model:DtailModel = self.dataSource[indexPath.row] as! DtailModel
             cell.setValuesWithModel(model)
+            cell.backgroundColor = UIColor.clearColor()
         }
          return cell
     }
@@ -68,6 +73,13 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //设置图片
         self.setPicture(indexPath.row)
+        let model:DtailModel = self.dataSource[indexPath.row] as! DtailModel
+        print(model.url)
+        
+        
+        
+        
+
     }
     
     func setPicture(row:Int) {
